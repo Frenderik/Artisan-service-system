@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load is_already_applied %}
+{% block title %}
+    Service details
+{% endblock %}
+
+{% block content %}
+
+    <section class="bg-light-gray">
+        <div class="container">
+            <!-- <img src=" media/static/img " alt="Image">{{user.profile_picture}} <br> -->
+            <div class="profile-picture-container">
+                {% if service.user.profile_picture %}
+                    <img class="profile-picture" src="{{ service.user.profile_picture.url }}" alt="Profile Picture" width="400" height="300">
+                {% else %}
+                    <p>No profile picture available</p>
+                {% endif %}
+            </div>
+            <h3 class="center-text">Artisan: {{service.user.get_full_name }}<br></h3>
+            <h4> Email: {{ service.user.email }}<br></h4> 
+            <h4> Contact: {{ service.user.contact}}<br></h4> 
+            <h3 class="heading">Service: {{ service.title }}<br>
+                <small>at <a href="#"> {{ service.company_name }}</a></small>
+            </h1>
+            <div class="service-detail-description"><i class="fa fa-map-marker service__location"> </i>
+                {{ service.location }} | Posted {{ service.created_at|timesince }} |<br>
+                <br>
+               Provided Through: {% if service.type == '1' %}
+                    <span class="badge featured-badge badge-success">Contract</span>
+                {% elif service.type == '2' %}
+                    <span class="badge featured-badge badge-primary">Piecework</span>
+                {% else %}
+                    <span style="color: #ffffff;" class="badge featured-badge badge-warning">Dailywork</span>
+                {% endif %} <br>
+                <br>
+                <br>
+                Service Status:{% if service.filled %} 
+                <span class="badge badge-success">Completed</span>
+                {% else %}
+                <span class="badge badge-secondary">Not Completed</span>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h3>Category: {{ service.category }}</h3>
+                    <h5>Last date: {{ service.last_date|date }}</h5>
+                    <h5 class="text-info">Cost: Negotiable</h5>
+                    <blockquote class="blockquote">
+                        <p>{{ service.description }}</p>
+                    </blockquote>
+                    <div class="service-detail__apply-bottom">
+                        {% if request.user.is_authenticated %}
+                            {% is_already_applied service request.user as is_applied %}
+                            {% if is_applied %}
+                                <input type="button" class="btn btn-outline-white-primary" value="Already applied"/>
+                            {% else %}
+                                <form action="{% url 'services:apply-service' service.id %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="service" value="{{ service.id }}">
+                                    <input type="submit" class="btn btn-outline-white-primary"
+                                           value="Apply for this service"/>
+                                </form>
+                            {% endif %}
+                        {% else %}
+                            <form action="{% url 'services:apply-service' service.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="service" value="{{ service.id }}">
+                                <input type="submit" class="btn btn-outline-white-primary"
+                                       value="Apply for this service"/>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+                <div class="col-lg-3">
+                    <h4>About: {{ service.company_name }}</h4>
+                    <p class="service-detail__company-description">{{ service.company_description }}</p>
+                    <p class="service-detail__social social social--outline">
+                        <a href="{{ service.website }}" data-toggle="tooltip" data-placement="top" title="Website"
+                           class="link">
+                            <i class="fa fa-link"></i>
+                        </a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Twitter" class="twitter">
+                            <i class="fa fa-twitter"></i>
+                        
+                    </p>
+                    <div class="service-detail__apply-top">
+                        {% if is_applied %}
+                            <input type="button" class="btn btn-outline-white-primary" value="Already applied"/>
+                        {% else %}
+                            <form action="{% url 'services:apply-service' service.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="service" value="{{ service.id }}">
+                                <input type="submit" class="btn btn-outline-white-primary" value="Apply for this service"/>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

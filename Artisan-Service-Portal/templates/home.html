@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
+
+    <div id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+         class="modal fade">
+        <div role="document" class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="exampleModalLabel" class="modal-title">Customer Login</h4>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post">
+                        <div class="form-group">
+                            <input id="email_modal" type="text" placeholder="email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input id="password_modal" type="password" placeholder="password" class="form-control">
+                        </div>
+                        <p class="text-center">
+                            <button type="button" class="btn btn-outline-white-primary"><i class="fa fa-sign-in"></i>
+                                Log in
+                            </button>
+                        </p>
+                    </form>
+                    <p class="text-center text-muted">Not registered yet?</p>
+                    <p class="text-center text-muted"><a href="client-register.html"><strong>Register now</strong></a>!
+                        It is easy and done in 1 minute and gives you access to special discounts and much more!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- *** LOGIN MODAL END ***-->
+    <section class="service-form-section service-form-section--image">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="service-form-box">
+                        <h2 class="heading">Find a <span class="accent">service</span> you
+                            <span class="accent">need</span>.
+                        </h2>
+                        <form id="service-main-form" method="get" action="{% url 'services:searh' %}" class="service-main-form">
+                            <div class="controls">
+                                <div class="row align-items-center">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="service">Service</label>
+                                            <input type="text" id="service" name="service"
+                                                   placeholder="Service you are looking for" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="location">Location</label>
+                                            <input type="text" id="location" name="location"
+                                                   placeholder="Any particular location?" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="submit"
+                                                class="btn btn-outline-white-primary service-main-form__button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="bg-light-gray">
+        <div class="container">
+            <h3 class="heading">Featured artisan services </h3>
+            <div class="row featured align-items-stretch">
+                {% for service in services %}
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                        <div class="box-image-text bg-visible full-height">
+                            <div class="top">
+                                
+                                    <div class="image">
+                                        {% if service.user.profile_picture %}
+                                           <img src="{{ service.user.profile_picture.url }}" alt="Profile Picture" width="400" height="300">
+                                            {% else %}
+                                             <p>No profile picture available</p>
+                                                 {% endif %}
+                                    </div>
+                                    <div class="bg"></div>
+                                    <div class="logo">
+                                        <img src="{% static 'img/company-1.png' %}" alt="" style="max-width: 80px;">
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="content">
+                                <h5><a href="{% url 'services:services-detail' service.id %}">{{ service.name }}</a></h5>
+                                <p class="featured__details"><i class="fa fa-map-marker service__location"></i>
+                                    {{ service.location }}
+                                    {% if service.type == '1' %}
+                                        <span class="badge featured-badge badge-success">Contract</span>
+                                    {% elif service.type == '2' %}
+                                        <span class="badge featured-badge badge-primary">Piecework</span>
+                                    {% else %}
+                                        <span style="color: #ffffff;" class="badge featured-badge badge-warning">Dailywork</span>
+                                    {% endif %}
+                                </p>
+                                <p>{{ service.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <h4 class="heading">Trending this month</h4>
+            {% for trending in trendings %}
+                <div class="service-listing  service-listing--last">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-6">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="{% static 'img/company-1.png' %}"
+                                         alt="ShareBoardd " class="img-fluid">
+                                </div>
+                                <div class="col-10">
+                                    <h4 class="service__title">
+                                        <a href="{% url 'services:services-detail' trending.id %}">{{ trending.title }}</a>
+                                    </h4>
+                                    <p class="service__company">
+                                        {{ trending.company_name }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-10 col-md-3 col-lg-2 ml-auto"><i class="fa fa-map-marker service__location"></i>
+                            {{ trending.location }}
+                        </div>
+                        <div class="col-10 col-md-3 col-lg-3 ml-auto">
+                            <p>Posted {{ trending.created_at|timesince }}</p>
+                        </div>
+                        <div class="col-sm-12 col-md-2 col-lg-1">
+                            <div class="service__star">
+                                <a href="#" data-toggle="tooltip" data-placement="top"
+                                   title="Save to favourites" class="service__star__link">
+                                    <i class="fa fa-star"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    <section style="background-image: url({% static 'img/startup.jpg' %}); " class="section-divider">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <p>Start searching for your new artisan service now! </p>
+                    <p><a href="{% url 'services:services' %}" class="btn btn-outline-light">See the services we offer </a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

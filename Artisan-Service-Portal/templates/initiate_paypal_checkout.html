@@ -1,0 +1,44 @@
+<!-- initiate_paypal_checkout.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Edit Profile
+{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Initiate PayPal Checkout</title>
+    <!-- Include the PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=ASdr7jILCMeWTSiSmyD2G7TDP-9vzEI-3f7QyDSctNG3CzwyLxmxN4ydyxwnkE4t39EwdPHmWcbcf92C"></script>
+</head>
+<body>
+    <h3>Initiate PayPal Checkout</h4>
+    <div id="paypal-button-container"></div>
+
+    <script>
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '10.00' // Replace with the actual amount
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('Transaction completed by ' + details.payer.name.given_name);
+                    // Call your backend to save the transaction details
+                });
+            }
+        }).render('#paypal-button-container');
+    </script>
+</body>
+</html>
+
+{% endblock %}

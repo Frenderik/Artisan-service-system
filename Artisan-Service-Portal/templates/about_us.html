@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+About Us
+{% endblock %}
+
+{% block content %}
+<form action=""    enctype="multipart/form-data"></form>
+<section class="bg-light-orange">
+    <div class="container">
+      <h3 class="hero-title">For Artisan, by Artisans</h3>
+      <p class="hero-subtitle">Find skilled artisans who offer personalized and handcrafted services.</p>
+      <div class="circle-image-container">
+        <img src="{% static 'img/founder.png' %}" alt="Circle Image"  style="border-radius: 100%;" width="250" height="250"> 
+    </div>
+    <h5>Founder: Frenderik Maina <br>
+      Company: Artisan Services platform</h5>
+    
+  </section>
+
+  <!-- Featured Artisan Services -->
+  <section class="bg-light-gray">
+        <div class="container">
+            <h3 class="heading">Who We Are </h3>
+                    <div class="">
+                        <div class="">
+                            <div class="top">
+                                <div class="image">
+                                           <img src="{% static 'img/company-1.png' %}" alt="Profile Picture" width="400" height="300"> 
+                                             
+                                    </div>
+                                    <br>
+                                    <p class="who-we-are-text"style="font-weight: bold;">
+                                        At Artisan Services, we are passionate about connecting individuals with skilled artisans who bring
+                                        creativity and craftsmanship to every project. Our platform is a hub for unique and personalized services
+                                        that reflect the dedication and talent of artisans across various domains.
+                                    </p>
+                                    <p class="who-we-are-text"style="font-weight: bold;">
+                                        Whether you're looking for custom-made goods, handmade art, or specialized services, our mission is to
+                                        showcase the diversity of artisanal work. We believe in supporting artisans and fostering a community that
+                                        appreciates the value of handmade, one-of-a-kind creations.
+                                    </p>
+                                    <p class="who-we-are-text"style="font-weight: bold;">
+                                        Join us in celebrating the artistry, skill, and passion of artisans who make each service a distinctive
+                                        experience. Explore the world of artisan services and discover the stories behind the craftspeople who bring
+                                        them to life.
+                                    </p> 
+                            </div>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+    </section>
+  <!-- About Us Section -->
+  <section class="our-story" style="background: url({% static 'img/bombolulu.png' %}); width: 1500px; margin: 0 auto;">
+    <div class="container">
+      <h3 class="section-title" style="color: whitesmoke;">Our Story</h3>
+      <p class="our-story" style="color: white;font-weight: bold;">
+       Our story at Artisan Services System is a testament to the fusion of passion and craftsmanship. 
+       From humble beginnings, we envisioned a platform that not only appreciates but also celebrates the artistry of skilled artisans. Rooted in creativity, 
+       dedication, and collaboration, Artisan Services has evolved into a vibrant community that connects artisans with individuals who share an appreciation 
+       for unique, handmade services. More than just a platform, we are on a mission to provide a space where artisans can showcase their talents and customers 
+       can discover and support these distinctive creations. Join us in this journey of creativity and craftsmanship, where each artisan's work tells a story 
+       and reflects their unwavering dedication to their craft.    
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="vision">>
+    <div class="container">
+      <h3 class="section-title">our vision</h3>
+      <p class="vision-text" style="font-weight: bolder;">
+        At Artisan Services Platform, our vision is to create a thriving community that celebrates and promotes the
+        exceptional skills of artisans worldwide. We envision a platform where artisans can showcase their unique
+        talents, connect with a global audience, and find meaningful opportunities to share their craft. Our goal is
+        to empower artisans by providing them with a digital space that fosters creativity, collaboration, and
+        recognition. Through our platform, we aim to redefine the way artisan services are discovered, appreciated,
+        and valued. Join us on our journey to build a world where artisans are recognized as the heart and soul of
+        creative expression.
+      </p>
+      </p>
+    </div>
+  </section>
+{% endblock %}

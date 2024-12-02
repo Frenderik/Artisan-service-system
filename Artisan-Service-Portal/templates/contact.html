@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Contact Us
+{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title >Contact Us  Artisan Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-...." crossorigin="anonymous" />
+
+    <style>
+        body {
+            /* Add the background image URL and properties */
+            background-image: url('{% static "img/carpentry.jpeg" %}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0; /* Remove default body margin */
+            padding: 0; /* Remove default body padding */
+            font-family: Arial, sans-serif;
+            color: aliceblue;
+            font-weight: bold; /* Adjust the font-family as needed */
+        }
+
+        /* Other styles for your content */
+        .form-container {
+            color:whitesmoke;
+            float: center;
+            margin: 20px auto; /* Center the form container horizontally and provide top margin */
+            width: 300px; 
+            text/* Set a fixed width or adjust as needed */
+        }
+
+        /* Center the button within the form */
+        .form-container button {
+            display: block;
+            margin: 0 auto;
+            background-color:blueviolet;
+            width: 150px;
+            height:  50px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header or Title Section -->
+<h1 style="color: aliceblue;">Contact Us for Artisan Services</h1>
+
+<!-- Description of Artisan Services -->
+<p>
+    Thank you for your interest in our artisan services! Whether you have questions,
+    feedback, or need assistance, we're here to help. Please use the form below to
+    get in touch with us.
+</p>
+
+<!-- Contact Form Section -->
+<section class="form-container">
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" style="background-color: ;">Send Message</button>
+    </form>
+</section>
+
+<!-- Additional Information or Footer Section -->
+<footer>
+    <p>
+        Our artisan services include [provide a brief description of the services offered].
+        Feel free to reach out to us with any inquiries or requests.
+    </p>
+    <p>
+        Address: [Machakos Town, Opposite Naivas] <br>
+        Phone: <img src="{% static 'img/phone.jpeg' %}" alt="Phone Icon"></i>[0792258050] <br>
+        Email: [info@artisanservices.com] <br>
+    </p>
+</footer>
+
+</body>
+</html>
+{% endblock %}
